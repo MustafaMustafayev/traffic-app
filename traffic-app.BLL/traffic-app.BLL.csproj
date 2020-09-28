@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>traffic_app.BLL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\IServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>
