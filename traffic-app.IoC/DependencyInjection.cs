@@ -6,8 +6,12 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using traffic_app.BLL.Services;
+using traffic_app.BLL.Services.IServices;
 using traffic_app.Core.Utility;
 using traffic_app.DAL.DatabaseContext;
+using traffic_app.DAL.Repositories;
+using traffic_app.DAL.Repositories.IRepositories;
 
 namespace traffic_app.IoC
 {
@@ -29,6 +33,13 @@ namespace traffic_app.IoC
             });
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IAuthService, AuthService>();
+            
+            services.AddScoped<IUserElasticsearchService, UserElasticsearchService>();
 
             services.AddDistributedMemoryCache();
             services.AddSession();

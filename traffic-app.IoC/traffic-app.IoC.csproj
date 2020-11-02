@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\traffic-app.BLL\traffic-app.BLL.csproj" />
     <ProjectReference Include="..\traffic-app.Core\traffic-app.Core.csproj" />
     <ProjectReference Include="..\traffic-app.DAL\traffic-app.DAL.csproj" />
   </ItemGroup>

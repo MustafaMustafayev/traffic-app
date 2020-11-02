@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\traffic-app.DTO\traffic-app.DTO.csproj" />
     <ProjectReference Include="..\traffic-app.IoC\traffic-app.IoC.csproj" />
   </ItemGroup>
 

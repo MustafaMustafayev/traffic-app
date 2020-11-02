@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using traffic_app.DTO;
+using traffic_app.Entity.Entities;
 
 namespace traffic_app.Core.Utility
 {
@@ -9,7 +11,12 @@ namespace traffic_app.Core.Utility
     {
         public AutoMapperProfile()
         {
+            CreateMap<User, UserToListDTO>()
+                     .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToString("dd/MM/yyyy")))
+                     .ReverseMap();
 
+            CreateMap<User, UserToAddDTO>().ReverseMap();
+            CreateMap<User, UserToUpdateDTO>().ReverseMap();
         }
     }
 }

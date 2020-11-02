@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\IServices\" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="NEST" Version="7.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <ProjectReference Include="..\traffic-app.DAL\traffic-app.DAL.csproj" />
+    <ProjectReference Include="..\traffic-app.DTO\traffic-app.DTO.csproj" />
   </ItemGroup>
 
 </Project>
