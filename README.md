@@ -7,7 +7,7 @@ go to traffic-app.DAL using package manager console:
 
 # Step 2:
 Create migration:
-#dotnet ef --startup-project ../traffic-app.API migrations add users1 --context TrafficDbContext
+# dotnet ef --startup-project ../traffic-app.API migrations add users1 --context TrafficDbContext
 
 # Step 3:
 Update db:
