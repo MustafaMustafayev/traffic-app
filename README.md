@@ -12,3 +12,6 @@ Create migration:
 # Step 3:
 Update db:
 # dotnet ef --startup-project ../traffic-app.API database update users1 --context TrafficDbContext
+
+# Note:
+Each migration should be # unique tag like users1.
