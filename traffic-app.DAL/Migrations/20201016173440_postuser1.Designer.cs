@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using traffic_app.DAL.DatabaseContext;
 
 namespace traffic_app.DAL.Migrations
 {
     [DbContext(typeof(TrafficDbContext))]
-    partial class TrafficDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201016173440_postuser1")]
+    partial class postuser1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,34 +46,6 @@ namespace traffic_app.DAL.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("traffic_app.Entity.Entities.PostImage", b =>
-                {
-                    b.Property<int>("PostImageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImageExtension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageFullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostImageId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostImages");
-                });
-
             modelBuilder.Entity("traffic_app.Entity.Entities.PostUser", b =>
                 {
                     b.Property<int>("PostUserId")
@@ -79,11 +53,20 @@ namespace traffic_app.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -114,7 +97,15 @@ namespace traffic_app.DAL.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -126,19 +117,10 @@ namespace traffic_app.DAL.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("traffic_app.Entity.Entities.PostImage", b =>
-                {
-                    b.HasOne("traffic_app.Entity.Entities.Post", "Post")
-                        .WithMany("PostImages")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("traffic_app.Entity.Entities.PostUser", b =>
                 {
                     b.HasOne("traffic_app.Entity.Entities.Post", "Post")
-                        .WithMany("PostUsers")
+                        .WithMany()
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

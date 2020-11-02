@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace traffic_app.Entity.Entities
+namespace traffic_app.DTO
 {
-    public class User
+    public class UserToUpdateDTO
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+        [Required]
         public int UserId { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Surname { get; set; }
         [Required]
         //[MinLength(9)]
         //[MaxLength(9)]
@@ -19,9 +21,5 @@ namespace traffic_app.Entity.Entities
         //[MinLength(9)]
         //[MaxLength(9)]
         public string PhoneNumber { get; set; }
-        [Required]
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
     }
 }
