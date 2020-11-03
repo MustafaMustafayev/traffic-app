@@ -9,7 +9,11 @@ namespace traffic_app.DTO
     {
         [Required]
         public int Id{ get; set; }
-        [Required]
+        public string Username { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string UserMail { get; set; }
         public string CarNumber{ get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

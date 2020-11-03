@@ -7,17 +7,13 @@ namespace traffic_app.DTO
 {
     public class UserToAddDTO
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Surname { get; set; }
-        [Required]
-        //[MinLength(9)]
-        //[MaxLength(9)]
+        public string UserMail { get; set; }
         public string CarNumber { get; set; }
         [Required]
-        //[MinLength(9)]
-        //[MaxLength(9)]
         public string PhoneNumber { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
 }

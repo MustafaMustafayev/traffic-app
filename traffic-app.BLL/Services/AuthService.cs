@@ -21,7 +21,7 @@ namespace traffic_app.BLL.Services
         }
         public async Task<UserToListDTO> Login(LoginDTO loginDTO)
         {
-            User user = await _userRepository.Get(m => m.CarNumber == loginDTO.CarNumber && m.PhoneNumber == loginDTO.PhoneNumber);
+            User user = await _userRepository.Get(m => m.PhoneNumber == loginDTO.PhoneNumber);
             return _mapper.Map<UserToListDTO>(user);
         }
     }

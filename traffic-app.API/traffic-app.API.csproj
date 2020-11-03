@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>traffic_app.API</RootNamespace>
+    <UserSecretsId>410057bc-80dd-4cd6-821e-019020302397</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

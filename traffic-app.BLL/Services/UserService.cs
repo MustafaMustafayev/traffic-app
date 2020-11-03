@@ -13,10 +13,12 @@ namespace traffic_app.BLL.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserElasticsearchService _userElasticsearchService;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IUserElasticsearchService userElasticsearchService, IMapper mapper)
         {
             _userRepository = userRepository;
+            _userElasticsearchService = userElasticsearchService;
             _mapper = mapper;
         }
 
@@ -24,7 +26,9 @@ namespace traffic_app.BLL.Services
         {
             User user = _mapper.Map<User>(userToAddDTO);
             user.CreatedAt = DateTime.Now;
-            return _mapper.Map<UserToListDTO>(await _userRepository.Add(user));
+            UserToListDTO userToListDTO = _mapper.Map<UserToListDTO>(await _userRepository.Add(user));
+
+            return userToListDTO;
         }
 
         public async Task<UserToListDTO> DeleteUser(int userId)

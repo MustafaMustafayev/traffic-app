@@ -21,9 +21,9 @@ namespace traffic_app.DAL.DatabaseContext
             optionsBuilder.UseLazyLoadingProxies();
         }
          /*
-           dotnet ef --startup-project ../traffic-app.API migrations add users1 --context TrafficDbContext
+           dotnet ef --startup-project ../traffic-app.API migrations add users12 --context TrafficDbContext
 
-           dotnet ef --startup-project ../traffic-app.API database update users1 --context TrafficDbContext
+           dotnet ef --startup-project ../traffic-app.API database update users12 --context TrafficDbContext
          */ 
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
