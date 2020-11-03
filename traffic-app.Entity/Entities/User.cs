@@ -11,14 +11,14 @@ namespace traffic_app.Entity.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int UserId { get; set; }
-        [Required]
-        //[MinLength(9)]
-        //[MaxLength(9)]
+        public string Name { get; set; }
+        public string Surname{ get; set; }
+        public string UserMail { get; set; }
         public string CarNumber { get; set; }
         [Required]
-        //[MinLength(9)]
-        //[MaxLength(9)]
         public string PhoneNumber { get; set; }
+        [Required]
+        public string Password { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
