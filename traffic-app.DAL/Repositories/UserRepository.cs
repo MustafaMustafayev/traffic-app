@@ -19,9 +19,24 @@ namespace traffic_app.DAL.Repositories
             _trafficDbContext = trafficDbContext;
         }
 
-        public async Task<bool> IsUserExist(string carNumber, string phoneNumber, int? userId)
+        public async Task<bool> IsUserExist(string phoneNumber, string password, int? userId)
         {
-            return await _trafficDbContext.Users.AnyAsync(m => m.CarNumber == carNumber && m.PhoneNumber == phoneNumber && m.UserId != userId);
+            return await _trafficDbContext.Users.AnyAsync(m => m.PhoneNumber == phoneNumber && m.Password == password && m.UserId != userId);
+        }
+
+        public async Task<User> UpdateUser(User user)
+        {
+            var userTracker = _trafficDbContext.Set<User>().Local.FirstOrDefault(entry => entry.UserId.Equals(user.UserId));
+            if (userTracker != null)
+            {
+                _trafficDbContext.Entry(userTracker).State = EntityState.Detached;
+            }
+            user.UpdatedAt = DateTime.Now;
+            _trafficDbContext.Entry(user).State = EntityState.Modified;
+            _trafficDbContext.Entry(user).Property("Password").IsModified = false;
+            _trafficDbContext.Entry(user).Property("CreatedAt").IsModified = false;
+            await _trafficDbContext.SaveChangesAsync();
+            return user;
         }
     }
 }

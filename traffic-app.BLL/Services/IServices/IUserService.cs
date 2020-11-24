@@ -8,10 +8,11 @@ namespace traffic_app.BLL.Services.IServices
 {
     public interface IUserService
     {
-        public Task<bool> IsUserExist(string carNumber, string phoneNumber, int? userId);
+        public Task<bool> IsUserExist(string phoneNumber, string password, int? userId);
         public Task<UserToListDTO> AddUser(UserToAddDTO userToAddDTO);
         public Task<UserToListDTO> UpdateUser(UserToUpdateDTO userToUpdateDTO);
         public Task<UserToListDTO> DeleteUser(int userId);
         public Task<UserToListDTO> GetUserById(int userId);
+        public Task<bool> ChangePassword(UserChangePasswordDTO userChangePasswordDTO);
     }
 }
