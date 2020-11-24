@@ -22,12 +22,14 @@ namespace traffic_app.API.Controllers
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
         private readonly IConfiguration _configuration;
+        private readonly IUtil _util;
 
-        public AuthController(IAuthService authService, IUserService userService, IConfiguration configuration)
+        public AuthController(IAuthService authService, IUserService userService, IConfiguration configuration, IUtil util)
         {
             _authService = authService;
             _userService = userService;
             _configuration = configuration;
+            _util = util;
         }
 
         [HttpPost("login")]
@@ -81,11 +83,11 @@ namespace traffic_app.API.Controllers
                 {
                     return BadRequest(Messages.InvalidModel);
                 }   
-                if(await _userService.IsUserExist(userToAddDTO.CarNumber, userToAddDTO.PhoneNumber, null))
+                if(await _userService.IsUserExist(userToAddDTO.PhoneNumber, _util.GetHash(userToAddDTO.Password), null))
                 {
                     return BadRequest(Messages.UserIsExist);
                 }
-                return Ok(await _userService.AddUser(userToAddDTO));
+                return StatusCode(StatusCodes.Status201Created, await _userService.AddUser(userToAddDTO));
             }
             catch (Exception ex)
             {

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace traffic_app.Core.Utility
 {
-    public interface IUtil
+    public static class ErrorCodes
     {
-        string GetHash(string value);
+        public const string UserIsExist = "UserIsExist";
     }
 }

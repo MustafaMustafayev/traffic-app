@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\traffic-app.DTO\traffic-app.DTO.csproj" />
     <ProjectReference Include="..\traffic-app.Entity\traffic-app.Entity.csproj" />
   </ItemGroup>
 

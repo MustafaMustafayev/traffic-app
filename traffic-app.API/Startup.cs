@@ -44,7 +44,7 @@ namespace traffic_app.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI(c => {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MonitoringApp API");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Traffic API");
                 });
                 app.UseDeveloperExceptionPage();
             }
