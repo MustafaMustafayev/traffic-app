@@ -41,6 +41,12 @@ namespace traffic_app.IoC
 
             services.AddScoped<IAuthService, AuthService>();
 
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
+
+            services.AddScoped<IPostImageRepository, PostImageRepository>();
+            services.AddScoped<IPostImageService, PostImageService>();
+
             services.AddScoped<IUtil, Util>();
             
             services.AddScoped<IUserElasticsearchService, UserElasticsearchService>();

@@ -22,5 +22,7 @@ namespace traffic_app.Entity.Entities
         public int UserId { get; set; }
         [Required]
         public bool IsOwner { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

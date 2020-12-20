@@ -11,13 +11,14 @@ namespace traffic_app.Entity.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int PostId { get; set; }
-        [Required]
         public string PostText { get; set; }
         public virtual List<PostImage> PostImages { get; set; }
         public virtual List<PostUser> PostUsers { get; set; }
         [Required]
+        public int Owner { get; set; }
+        [Required]
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
     }
 }
