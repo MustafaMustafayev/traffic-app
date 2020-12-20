@@ -49,6 +49,8 @@ namespace traffic_app.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();

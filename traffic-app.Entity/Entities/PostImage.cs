@@ -20,5 +20,7 @@ namespace traffic_app.Entity.Entities
         [Required]
         public string ImageFullName { get; set; }
         public string ImageExtension { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 }

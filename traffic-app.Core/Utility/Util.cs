@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -15,6 +17,14 @@ namespace traffic_app.Core.Utility
                 string hashedValue = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
                 return hashedValue;
             }
+        }
+
+        public int getUserIdFromToken(string tokenString)
+        {
+            var jwtEncodedString = tokenString.Substring(7);
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            int userId = Convert.ToInt32(token.Claims.First(c => c.Type == "nameid").Value);
+            return userId;
         }
     }
 }
