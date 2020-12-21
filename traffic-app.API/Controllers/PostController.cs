@@ -50,6 +50,24 @@ namespace traffic_app.API.Controllers
             }
         }
 
+        [HttpGet("getUserPostList")]
+        public async Task<IActionResult> GetUserPostList()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(Messages.InvalidModel);
+                }
+                string tokenString = HttpContext.Request.Headers["Authorization"].ToString();
+                return Ok(await _postService.GetUserPostList(_util.getUserIdFromToken(tokenString)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(Messages.GeneralError);
+            }
+        }
+
         [HttpPost("createPost")]
         public async Task<IActionResult> CreatePost(PostToAddDTO postToAddDTO)
         {
