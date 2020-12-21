@@ -62,6 +62,20 @@ namespace traffic_app.BLL.Services
             return postLists;
         }
 
+        public async Task<List<PostToListDTO>> GetUserPostList(int userId)
+        {
+            List<Post> posts = await _postRepository.GetList(m => m.Owner == userId);
+            List<PostToListDTO> postLists = _mapper.Map<List<PostToListDTO>>(posts);
+            foreach (PostToListDTO post in postLists)
+            {
+                if (post.Owner == userId)
+                {
+                    post.isOwner = true;
+                }
+            }
+            return postLists;
+        }
+
         public async Task UpdatePost(PostToUpdateDTO postToUpdateDTO)
         {
             Post post = await _postRepository.Get(m => m.PostId == postToUpdateDTO.PostId);
