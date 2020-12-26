@@ -41,8 +41,13 @@ namespace traffic_app.API.Controllers
                 {
                     return BadRequest(Messages.InvalidModel);
                 }
-                string tokenString = HttpContext.Request.Headers["Authorization"].ToString();
-                return Ok(await _postService.GetPostList(_util.getUserIdFromToken(tokenString)));
+                string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();
+                PaginationDTO paginationDTO = new PaginationDTO()
+                {
+                    PageNumber = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageNumberHeaderName]),
+                    PageSize = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageSizeHeaderName])
+                };
+                return Ok(await _postService.GetPostList(_util.getUserIdFromToken(tokenString), paginationDTO));
             }
             catch (Exception ex)
             {
@@ -59,8 +64,13 @@ namespace traffic_app.API.Controllers
                 {
                     return BadRequest(Messages.InvalidModel);
                 }
-                string tokenString = HttpContext.Request.Headers["Authorization"].ToString();
-                return Ok(await _postService.GetUserPostList(_util.getUserIdFromToken(tokenString)));
+                string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();
+                PaginationDTO paginationDTO = new PaginationDTO()
+                {
+                    PageNumber = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageNumberHeaderName]),
+                    PageSize = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageSizeHeaderName])
+                };
+                return Ok(await _postService.GetUserPostList(_util.getUserIdFromToken(tokenString), paginationDTO));
             }
             catch (Exception ex)
             {
@@ -77,7 +87,7 @@ namespace traffic_app.API.Controllers
                 {
                     return BadRequest(Messages.InvalidModel);
                 }
-                string tokenString = HttpContext.Request.Headers["Authorization"].ToString();         
+                string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();         
                 return Ok(await _postService.CreatePost(postToAddDTO, _util.getUserIdFromToken(tokenString)));
             }
             catch (Exception ex)

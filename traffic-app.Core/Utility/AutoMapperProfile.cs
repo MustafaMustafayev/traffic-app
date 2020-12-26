@@ -17,6 +17,8 @@ namespace traffic_app.Core.Utility
 
             CreateMap<User, UserToAddDTO>().ReverseMap();
             CreateMap<User, UserToUpdateDTO>().ReverseMap();
+            CreateMap<User, PostedByDTO>().ReverseMap();
+
             CreateMap<Post, PostToAddDTO>().ReverseMap();
             CreateMap<PostImage, PostImageToAddDTO>().ReverseMap();
             CreateMap<PostImage, PostImageToListDTO>().ReverseMap();

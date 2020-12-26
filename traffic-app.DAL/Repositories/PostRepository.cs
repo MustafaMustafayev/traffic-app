@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using traffic_app.DAL.DatabaseContext;
 using traffic_app.DAL.Repositories.IRepositories;
+using traffic_app.DTO;
 using traffic_app.Entity.Entities;
 
 namespace traffic_app.DAL.Repositories
@@ -18,14 +19,16 @@ namespace traffic_app.DAL.Repositories
             _trafficDbContext = trafficDbContext;
         }
 
-        public async Task<List<Post>> GetPostList()
+        public async Task<List<Post>> GetPostList(PaginationDTO paginationDTO)
         {
-            return await _trafficDbContext.Posts.ToListAsync();
+            return await  _trafficDbContext.Posts.OrderByDescending(m => m.UpdatedAt).Skip((paginationDTO.PageNumber - 1) * paginationDTO.PageSize)
+                                                        .Take(paginationDTO.PageSize).ToListAsync();
         }
 
-        public async Task<List<Post>> GetUserPostList(int userId)
+        public async Task<List<Post>> GetUserPostList(int userId, PaginationDTO paginationDTO)
         {
-            return await _trafficDbContext.Posts.Where(m => m.Owner == userId).ToListAsync();
+            return await _trafficDbContext.Posts.Where(m => m.Owner == userId).OrderByDescending(m => m.UpdatedAt).Skip((paginationDTO.PageNumber - 1) * paginationDTO.PageSize)
+                                                                                     .Take(paginationDTO.PageSize).ToListAsync();
         }
     }
 }
