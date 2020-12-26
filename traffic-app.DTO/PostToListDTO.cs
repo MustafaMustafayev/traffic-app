@@ -8,7 +8,8 @@ namespace traffic_app.DTO
     {
         public int PostId { get; set; }
         public string PostText { get; set; }
-        public List<PostImageToListDTO> PostImages { get; set; }
+        public List<PostImageToListDTO> PostImages { get; set; } 
+        public PostedByDTO PostedBy { get; set; }
         public int Owner { get; set; }
         public bool isOwner { get; set; }
         public string UpdatedAt { get; set; }

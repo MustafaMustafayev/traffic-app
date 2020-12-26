@@ -11,7 +11,7 @@ namespace traffic_app.BLL.Services.IServices
         Task<int> CreatePost(PostToAddDTO postToAddDTO, int ownerUserId);
         Task UpdatePost(PostToUpdateDTO postToUpdateDTO);
         Task<int> DeletePost(int postId);
-        Task<List<PostToListDTO>> GetPostList(int userId);
-        Task<List<PostToListDTO>> GetUserPostList(int userId);
+        Task<List<PostToListDTO>> GetPostList(int userId, PaginationDTO paginationDTO);
+        Task<List<PostToListDTO>> GetUserPostList(int userId, PaginationDTO paginationDTO);
     }
 }

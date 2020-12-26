@@ -13,10 +13,12 @@ namespace traffic_app.BLL.Services
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public PostService(IPostRepository postRepository, IMapper mapper)
+        public PostService(IPostRepository postRepository, IUserRepository userRepository, IMapper mapper)
         {
             _postRepository = postRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -48,12 +50,13 @@ namespace traffic_app.BLL.Services
             return post.PostId;
         }
 
-        public async Task<List<PostToListDTO>> GetPostList(int userId)
+        public async Task<List<PostToListDTO>> GetPostList(int userId, PaginationDTO paginationDTO)
         {
-            List<Post> posts = await _postRepository.GetList();
+            List<Post> posts = await _postRepository.GetPostList(paginationDTO);
             List<PostToListDTO> postLists = _mapper.Map<List<PostToListDTO>>(posts);
             foreach(PostToListDTO post in postLists)
             {
+                post.PostedBy =  _mapper.Map<PostedByDTO>(await _userRepository.Get(m => m.UserId == post.Owner));
                 if(post.Owner == userId)
                 {
                     post.isOwner = true;
@@ -62,12 +65,13 @@ namespace traffic_app.BLL.Services
             return postLists;
         }
 
-        public async Task<List<PostToListDTO>> GetUserPostList(int userId)
+        public async Task<List<PostToListDTO>> GetUserPostList(int userId, PaginationDTO paginationDTO)
         {
-            List<Post> posts = await _postRepository.GetList(m => m.Owner == userId);
+            List<Post> posts = await _postRepository.GetUserPostList(userId, paginationDTO);
             List<PostToListDTO> postLists = _mapper.Map<List<PostToListDTO>>(posts);
             foreach (PostToListDTO post in postLists)
             {
+                post.PostedBy = _mapper.Map<PostedByDTO>(await _userRepository.Get(m => m.UserId == post.Owner));
                 if (post.Owner == userId)
                 {
                     post.isOwner = true;
