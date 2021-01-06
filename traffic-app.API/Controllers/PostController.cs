@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -119,9 +120,12 @@ namespace traffic_app.API.Controllers
 
                 if (postImageDTO.file.Length > 0)
                 {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                    using (var ms = new MemoryStream())
                     {
-                        await postImageDTO.file.CopyToAsync(fileStream);
+                        postImageDTO.file.CopyTo(ms);
+                        var fileBytes = ms.ToArray();
+                        Bitmap bmp = new Bitmap(ms);
+                        _util.VaryQualityLevel(bmp, "wwwroot"+filePath);
                     }
                 }
                 PostImageToAddDTO postImageToAddDTO = new PostImageToAddDTO()
