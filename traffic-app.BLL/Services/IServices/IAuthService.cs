@@ -9,5 +9,6 @@ namespace traffic_app.BLL.Services.IServices
     public interface IAuthService
     {
         public Task<UserToListDTO> Login(LoginDTO loginDTO);
+        public bool IsValidToken(string token);
     }
 }

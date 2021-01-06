@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ImageMagick;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -105,10 +106,17 @@ namespace traffic_app.API.Controllers
                 {
                     return BadRequest(Messages.InvalidModel);
                 }
+                string fileExtension = postImageDTO.file.FileName.Substring(postImageDTO.file.FileName.LastIndexOf('.') + 1);
+                if (!Constants.ValidImageFileFormats.Contains(fileExtension.ToLower()))
+                {
+                    return BadRequest(Messages.InvalidImageFileFormat);
+                }
+
                 Guid guid = Guid.NewGuid();
                 var uploads = Path.Combine(_environment.WebRootPath, "posts");
                 string fileName = guid.ToString() + postImageDTO.file.FileName;
                 string filePath = "/posts/" + fileName;
+
                 if (postImageDTO.file.Length > 0)
                 {
                     using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
