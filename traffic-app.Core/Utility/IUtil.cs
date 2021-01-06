@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace traffic_app.Core.Utility
@@ -8,5 +9,6 @@ namespace traffic_app.Core.Utility
     {
         string GetHash(string value);
         int getUserIdFromToken(string tokenString);
+        public void VaryQualityLevel(Bitmap bmp, string savePath);
     }
 }
