@@ -94,5 +94,18 @@ namespace traffic_app.API.Controllers
                 return BadRequest(Messages.GeneralError);
             }
         }
+
+        [HttpGet("isValidToken/{token}")]
+        public IActionResult IsValidToken(string token)
+        {
+            try
+            {
+                return Ok(_authService.IsValidToken(token));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(Messages.GeneralError);
+            }
+        }
     }
 }

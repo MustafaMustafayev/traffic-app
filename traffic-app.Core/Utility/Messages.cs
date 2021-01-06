@@ -13,5 +13,6 @@ namespace traffic_app.Core.Utility
         public const string InvalidModel = "Məlumatlar tam daxil edilməyib";
         public const string UserIsExist = "İstifadəçi mövcuddur";
         public const string LoginFailed = "İstifadəçi məlumatları yanlışdır";
+        public const string InvalidImageFileFormat = "Əlavə etdiyiniz şəklin formatı qəbul edilmir";
     }
 }
