@@ -39,10 +39,6 @@ namespace traffic_app.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(Messages.InvalidModel);
-                }
                 string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();
                 PaginationDTO paginationDTO = new PaginationDTO()
                 {
@@ -62,10 +58,6 @@ namespace traffic_app.API.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(Messages.InvalidModel);
-                }
                 string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();
                 PaginationDTO paginationDTO = new PaginationDTO()
                 {
@@ -73,6 +65,19 @@ namespace traffic_app.API.Controllers
                     PageSize = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageSizeHeaderName])
                 };
                 return Ok(await _postService.GetUserPostList(_util.getUserIdFromToken(tokenString), paginationDTO));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(Messages.GeneralError);
+            }
+        }
+
+        [HttpGet("searcPostByCarNumber/{carNumber}")]
+        public async Task<IActionResult> SearcPostByCarNumber(string carNumber)
+        {
+            try
+            {
+                return Ok(await _postService.SearchPostByCarNumber(carNumber));
             }
             catch (Exception ex)
             {

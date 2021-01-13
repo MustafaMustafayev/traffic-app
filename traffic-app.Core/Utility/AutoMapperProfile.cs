@@ -25,6 +25,8 @@ namespace traffic_app.Core.Utility
             CreateMap<Post, PostToListDTO>()
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToString("dd/MM/yyyy")))
                 .ReverseMap();
+
+            CreateMap<Message, MessageToAddDTO>().ReverseMap();
         }
     }
 }

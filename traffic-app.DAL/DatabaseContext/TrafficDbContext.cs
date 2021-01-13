@@ -21,7 +21,7 @@ namespace traffic_app.DAL.DatabaseContext
             optionsBuilder.UseLazyLoadingProxies();
         }
          /*
-           dotnet ef --startup-project ../traffic-app.API migrations add postedby --context TrafficDbContext
+           dotnet ef --startup-project ../traffic-app.API migrations add messages --context TrafficDbContext
 
            dotnet ef --startup-project ../traffic-app.API database update postmigration --context TrafficDbContext
            dotnet ef --startup-project ../traffic-app.API database update  --context TrafficDbContext
@@ -30,12 +30,14 @@ namespace traffic_app.DAL.DatabaseContext
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostUser> PostUsers { get; set; }
         public DbSet<PostImage> PostImages { get; set; }
+        public DbSet<Message> Messages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {          
             modelBuilder.Entity<User>().HasQueryFilter(m => m.DeletedAt == null);
             modelBuilder.Entity<Post>().HasQueryFilter(m => m.DeletedAt == null);
             modelBuilder.Entity<PostUser>().HasQueryFilter(m => m.DeletedAt == null);
             modelBuilder.Entity<PostImage>().HasQueryFilter(m => m.DeletedAt == null);
+            modelBuilder.Entity<Message>().HasQueryFilter(m => m.DeletedAt == null);
         }
     }
 }

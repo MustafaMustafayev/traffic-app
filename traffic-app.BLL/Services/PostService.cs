@@ -80,6 +80,12 @@ namespace traffic_app.BLL.Services
             return postLists;
         }
 
+        public async Task<List<PostToListDTO>> SearchPostByCarNumber(string carNumber)
+        {
+            List<Post> posts = await _postRepository.GetList(m => m.PostText.ToLower().Contains(carNumber.ToLower()) == true);
+            return _mapper.Map<List<PostToListDTO>>(posts);
+        }
+
         public async Task UpdatePost(PostToUpdateDTO postToUpdateDTO)
         {
             Post post = await _postRepository.Get(m => m.PostId == postToUpdateDTO.PostId);

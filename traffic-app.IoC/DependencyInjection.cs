@@ -47,6 +47,9 @@ namespace traffic_app.IoC
             services.AddScoped<IPostImageRepository, PostImageRepository>();
             services.AddScoped<IPostImageService, PostImageService>();
 
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
+
             services.AddScoped<IUtil, Util>();
             
             services.AddScoped<IUserElasticsearchService, UserElasticsearchService>();
