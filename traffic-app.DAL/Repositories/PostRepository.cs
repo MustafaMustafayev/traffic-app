@@ -25,6 +25,12 @@ namespace traffic_app.DAL.Repositories
                                                         .Take(paginationDTO.PageSize).ToListAsync();
         }
 
+        public async Task<List<Post>> GetSearchedPostList(string carNumber, PaginationDTO paginationDTO)
+        {
+            return await _trafficDbContext.Posts.Where(m => m.PostText.ToLower().Contains(carNumber.ToLower())).OrderByDescending(m => m.UpdatedAt).Skip((paginationDTO.PageNumber - 1) * paginationDTO.PageSize)
+                                                        .Take(paginationDTO.PageSize).ToListAsync();
+        }
+
         public async Task<List<Post>> GetUserPostList(int userId, PaginationDTO paginationDTO)
         {
             return await _trafficDbContext.Posts.Where(m => m.Owner == userId).OrderByDescending(m => m.UpdatedAt).Skip((paginationDTO.PageNumber - 1) * paginationDTO.PageSize)

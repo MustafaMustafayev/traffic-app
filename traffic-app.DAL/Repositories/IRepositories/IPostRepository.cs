@@ -11,5 +11,6 @@ namespace traffic_app.DAL.Repositories.IRepositories
     {
         Task<List<Post>> GetPostList(PaginationDTO paginationDTO);
         Task<List<Post>> GetUserPostList(int userId, PaginationDTO paginationDTO);
+        Task<List<Post>> GetSearchedPostList(string carNumber, PaginationDTO paginationDTO);
     }
 }

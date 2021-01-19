@@ -77,7 +77,13 @@ namespace traffic_app.API.Controllers
         {
             try
             {
-                return Ok(await _postService.SearchPostByCarNumber(carNumber));
+                PaginationDTO paginationDTO = new PaginationDTO()
+                {
+                    PageNumber = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageNumberHeaderName]),
+                    PageSize = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageSizeHeaderName])
+                };
+                string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();
+                return Ok(await _postService.SearchPostByCarNumber(carNumber, _util.getUserIdFromToken(tokenString), paginationDTO));
             }
             catch (Exception ex)
             {
@@ -145,7 +151,7 @@ namespace traffic_app.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(Messages.GeneralError);
+                return BadRequest(ex.ToString());
             }
         }
 
