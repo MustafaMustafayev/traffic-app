@@ -107,5 +107,11 @@ namespace traffic_app.API.Controllers
                 return BadRequest(Messages.GeneralError);
             }
         }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok("test");
+        }
     }
 }

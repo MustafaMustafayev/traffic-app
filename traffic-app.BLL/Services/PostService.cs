@@ -80,10 +80,18 @@ namespace traffic_app.BLL.Services
             return postLists;
         }
 
-        public async Task<List<PostToListDTO>> SearchPostByCarNumber(string carNumber)
+        public async Task<List<PostToListDTO>> SearchPostByCarNumber(string carNumber, int userId, PaginationDTO paginationDTO)
         {
-            List<Post> posts = await _postRepository.GetList(m => m.PostText.ToLower().Contains(carNumber.ToLower()) == true);
-            return _mapper.Map<List<PostToListDTO>>(posts);
+            List<PostToListDTO> postList = _mapper.Map<List<PostToListDTO>>(await _postRepository.GetSearchedPostList(carNumber, paginationDTO));
+            foreach (PostToListDTO post in postList)
+            {
+                post.PostedBy = _mapper.Map<PostedByDTO>(await _userRepository.Get(m => m.UserId == post.Owner));
+                if (post.Owner == userId)
+                {
+                    post.isOwner = true;
+                }
+            }
+            return postList;
         }
 
         public async Task UpdatePost(PostToUpdateDTO postToUpdateDTO)
