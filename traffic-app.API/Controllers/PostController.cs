@@ -72,7 +72,7 @@ namespace traffic_app.API.Controllers
             }
         }
 
-        [HttpGet("searcPostByCarNumber/{carNumber}")]
+        [HttpGet, Route("searcPostByCarNumber/{carNumber?}")]
         public async Task<IActionResult> SearcPostByCarNumber(string carNumber)
         {
             try
@@ -83,7 +83,15 @@ namespace traffic_app.API.Controllers
                     PageSize = Convert.ToInt32(HttpContext.Request.Headers[Constants.PageSizeHeaderName])
                 };
                 string tokenString = HttpContext.Request.Headers[Constants.AuthorizationHeaderName].ToString();
-                return Ok(await _postService.SearchPostByCarNumber(carNumber, _util.getUserIdFromToken(tokenString), paginationDTO));
+
+                if (string.IsNullOrEmpty(carNumber))
+                {
+                    return Ok(await _postService.GetPostList(_util.getUserIdFromToken(tokenString), paginationDTO));
+                }
+                else
+                {
+                    return Ok(await _postService.SearchPostByCarNumber(carNumber, _util.getUserIdFromToken(tokenString), paginationDTO));
+                }
             }
             catch (Exception ex)
             {
