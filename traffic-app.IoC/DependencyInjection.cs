@@ -54,6 +54,9 @@ namespace traffic_app.IoC
             
             services.AddScoped<IUserElasticsearchService, UserElasticsearchService>();
 
+            services.AddScoped<IOnTheWayDriverPostRepository, OnTheWayDriverPostRepository>();
+            services.AddScoped<IOnTheWayDriverPostService, OnTheWayDriverPostService>();
+
             services.AddDistributedMemoryCache();
             services.AddSession();
 

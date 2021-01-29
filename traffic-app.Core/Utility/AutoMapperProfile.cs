@@ -27,6 +27,8 @@ namespace traffic_app.Core.Utility
                 .ReverseMap();
 
             CreateMap<Message, MessageToAddDTO>().ReverseMap();
+
+            CreateMap<OnTheWayDriverPost, OnTheWayDriverPostToAddDTO>().ReverseMap();
         }
     }
 }

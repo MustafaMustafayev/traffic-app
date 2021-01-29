@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using traffic_app.DAL.DatabaseContext;
 
 namespace traffic_app.DAL.Migrations
 {
     [DbContext(typeof(TrafficDbContext))]
-    partial class TrafficDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210129111038_driverpost")]
+    partial class driverpost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +65,6 @@ namespace traffic_app.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CarModel")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountOfEmptyPlace")
@@ -83,11 +84,6 @@ namespace traffic_app.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Payment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
