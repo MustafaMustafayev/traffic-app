@@ -1,32 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace traffic_app.DTO
 {
-    public class OnTheWayDriverPostToUpdateDTO
+    public class OnTheWayDriverPostToListDTO
     {
-        [Required]
         public int OnTheWayDriverPostId { get; set; }
-        [Required]  
+        public PostedByDTO PostedBy { get; set; }
+        public int UserId { get; set; }
+        public bool IsOwner { get; set; }
         public string FromPlace { get; set; }
-        [Required]
         public string ToPlace { get; set; }
-        [Required]
-        public DateTime StartDate { get; set; }
-        [Required]
+        public string StartDate { get; set; }
         public bool CanSmoke { get; set; }
-        [Required]
         public string Payment { get; set; }
         public bool CanTakeLuggage { get; set; }
-        [Required]
         public int CountOfEmptyPlace { get; set; }
-        [Required]
         public string CarModel { get; set; }
-        [Required]
+        public string CarImageUrl { get; set; }
         public string PhoneNumber { get; set; }
-        public IFormFile file { get; set; }
+        public string CreatedAt { get; set; }
     }
 }

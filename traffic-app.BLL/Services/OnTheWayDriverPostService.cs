@@ -14,10 +14,12 @@ namespace traffic_app.BLL.Services
     {
         private readonly IOnTheWayDriverPostRepository _onTheWayDriverPostRepository;
         private readonly IMapper _mapper;
-        public OnTheWayDriverPostService(IOnTheWayDriverPostRepository onTheWayDriverPostRepository, IMapper mapper)
-        {
+        private readonly IUserRepository _userRepository;
+        public OnTheWayDriverPostService(IOnTheWayDriverPostRepository onTheWayDriverPostRepository, IMapper mapper, IUserRepository userRepository)
+        { 
             _onTheWayDriverPostRepository = onTheWayDriverPostRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public async Task AddDriverPost(OnTheWayDriverPostToAddDTO onTheWayDriverPostToAddDTO, string filePath, int userId)
@@ -28,6 +30,78 @@ namespace traffic_app.BLL.Services
             onTheWayDriverPost.CreatedAt = DateTime.Now;
             onTheWayDriverPost.UpdatedAt = DateTime.Now;
             await _onTheWayDriverPostRepository.Add(onTheWayDriverPost);
+        }
+
+        public async Task DeleteDriverPost(int postId)
+        {
+            OnTheWayDriverPost onTheWayDriverPost = await _onTheWayDriverPostRepository.Get(m => m.OnTheWayDriverPostId == postId);
+            onTheWayDriverPost.DeletedAt = DateTime.Now;
+            onTheWayDriverPost.UpdatedAt = DateTime.Now;
+            onTheWayDriverPost.IsDeleted = true;
+            await _onTheWayDriverPostRepository.Update(onTheWayDriverPost);
+        }
+
+        public async Task<List<OnTheWayDriverPostToListDTO>> FilterDriverPosts(OnTheWayDriverPostToFilterDTO onTheWayDriverPostToFilterDTO, PaginationDTO paginationDTO, int userId)
+        {
+            List<OnTheWayDriverPost> driverPosts = await _onTheWayDriverPostRepository.FilterDriverPosts(onTheWayDriverPostToFilterDTO, paginationDTO);
+            List<OnTheWayDriverPostToListDTO> onTheWayDriverPostToListDTOs = _mapper.Map<List<OnTheWayDriverPostToListDTO>>(driverPosts);
+
+            foreach (OnTheWayDriverPostToListDTO post in onTheWayDriverPostToListDTOs)
+            {
+                post.PostedBy = _mapper.Map<PostedByDTO>(await _userRepository.Get(m => m.UserId == post.UserId));
+                if (post.UserId == userId)
+                {
+                    post.IsOwner = true;
+                }
+            }
+            return onTheWayDriverPostToListDTOs;
+        }
+
+        public async Task<List<OnTheWayDriverPostToListDTO>> GetDriverOwnPosts(PaginationDTO paginationDTO, int userId)
+        {
+            List<OnTheWayDriverPost> driverPosts = await _onTheWayDriverPostRepository.GetDriverOwnPosts(paginationDTO, userId);
+            List<OnTheWayDriverPostToListDTO> onTheWayDriverPostToListDTOs = _mapper.Map<List<OnTheWayDriverPostToListDTO>>(driverPosts);
+            foreach (OnTheWayDriverPostToListDTO post in onTheWayDriverPostToListDTOs)
+            {
+                post.PostedBy = _mapper.Map<PostedByDTO>(await _userRepository.Get(m => m.UserId == post.UserId));
+                if (post.UserId == userId)
+                {
+                    post.IsOwner = true;
+                }
+            }
+            return onTheWayDriverPostToListDTOs;
+        }
+
+        public async Task<OnTheWayDriverPostToListDTO> GetDriverPostById(int postId)
+        {
+            OnTheWayDriverPost onTheWayDriverPost = await _onTheWayDriverPostRepository.Get(m => m.OnTheWayDriverPostId == postId);
+            return _mapper.Map<OnTheWayDriverPostToListDTO>(onTheWayDriverPost);
+        }
+
+        public async Task<List<OnTheWayDriverPostToListDTO>> GetDriverPosts(PaginationDTO paginationDTO, int userId)
+        {
+            List<OnTheWayDriverPost> driverPosts = await _onTheWayDriverPostRepository.GetDriverPosts(paginationDTO);
+            List<OnTheWayDriverPostToListDTO> onTheWayDriverPostToListDTOs = _mapper.Map<List<OnTheWayDriverPostToListDTO>>(driverPosts);
+
+            foreach (OnTheWayDriverPostToListDTO post in onTheWayDriverPostToListDTOs)
+            {
+                post.PostedBy = _mapper.Map<PostedByDTO>(await _userRepository.Get(m => m.UserId == post.UserId));
+                if (post.UserId == userId)
+                {
+                    post.IsOwner = true;
+                }
+            }
+
+            return onTheWayDriverPostToListDTOs;
+        }
+
+        public async Task UpdateDriverPost(OnTheWayDriverPostToUpdateDTO onTheWayDriverPostToUpdateDTO, string filePath, int userId)
+        {
+            OnTheWayDriverPost onTheWayDriverPost = _mapper.Map<OnTheWayDriverPost>(onTheWayDriverPostToUpdateDTO);
+            onTheWayDriverPost.UserId = userId;
+            onTheWayDriverPost.CarImageUrl = filePath;
+            onTheWayDriverPost.UpdatedAt = DateTime.Now;
+            await _onTheWayDriverPostRepository.Update(onTheWayDriverPost);
         }
     }
 }

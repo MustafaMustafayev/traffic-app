@@ -29,6 +29,12 @@ namespace traffic_app.Core.Utility
             CreateMap<Message, MessageToAddDTO>().ReverseMap();
 
             CreateMap<OnTheWayDriverPost, OnTheWayDriverPostToAddDTO>().ReverseMap();
+            CreateMap<OnTheWayDriverPost, OnTheWayDriverPostToUpdateDTO>().ReverseMap();
+
+            CreateMap<OnTheWayDriverPost, OnTheWayDriverPostToListDTO>()
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.ToString("dd/MM/yyyy HH:mm:ss")))
+                .ReverseMap();
         }
     }
 }
