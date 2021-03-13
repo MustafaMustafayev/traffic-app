@@ -20,6 +20,12 @@ namespace traffic_app.Entity.Entities
         public string ToPlace { get; set; }
         [Required]
         public DateTime StartDate { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
+        public string PaymentForEachPassenger { get; set; }
+        [Required]
+        public int CountOfPassenger { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

@@ -35,6 +35,19 @@ namespace traffic_app.Core.Utility
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
                 .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.ToString("dd/MM/yyyy HH:mm:ss")))
                 .ReverseMap();
+
+            CreateMap<OnTheWayPassengerPost, OnTheWayPassengerPostToAddDTO>().ReverseMap();
+            CreateMap<OnTheWayPassengerPost, OnTheWayPassengerPostToUpdateDTO>().ReverseMap();
+
+            CreateMap<OnTheWayPassengerPost, OnTheWayPassengerPostToListDTO>()
+               .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
+               .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.ToString("dd/MM/yyyy HH:mm:ss")))
+               .ReverseMap();
+
+            CreateMap<OnTheWayPassengerPost, OnTheWayPassengerPostToListDTO>()
+               .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss")))
+               .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.ToString("dd/MM/yyyy HH:mm:ss")))
+               .ReverseMap();
         }
     }
 }

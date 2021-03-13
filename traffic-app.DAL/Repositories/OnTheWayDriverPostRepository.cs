@@ -21,10 +21,10 @@ namespace traffic_app.DAL.Repositories
 
         public async Task<List<OnTheWayDriverPost>> FilterDriverPosts(OnTheWayDriverPostToFilterDTO onTheWayDriverPostToFilterDTO, PaginationDTO paginationDTO)
         {
-            return await _trafficDbContext.OnTheWayDriverPosts.Where(m => 
-                                                                    onTheWayDriverPostToFilterDTO.FromPlace.ToLower().Contains(m.FromPlace.ToLower()) &&
-                                                                    onTheWayDriverPostToFilterDTO.ToPlace.ToLower().Contains(m.ToPlace.ToLower()) &&
-                                                                    onTheWayDriverPostToFilterDTO.StartDate <= m.StartDate)
+            return await _trafficDbContext.OnTheWayDriverPosts.Where(m =>
+                                                                    (!string.IsNullOrEmpty(onTheWayDriverPostToFilterDTO.FromPlace) ? onTheWayDriverPostToFilterDTO.FromPlace.ToLower().Contains(m.FromPlace.ToLower()) : true) &&
+                                                                    (!string.IsNullOrEmpty(onTheWayDriverPostToFilterDTO.ToPlace) ? onTheWayDriverPostToFilterDTO.ToPlace.ToLower().Contains(m.ToPlace.ToLower()) : true) &&
+                                                                    (onTheWayDriverPostToFilterDTO.StartDate != null ? onTheWayDriverPostToFilterDTO.StartDate <= m.StartDate : true))
                                                                    .OrderByDescending(m => m.UpdatedAt).Skip((paginationDTO.PageNumber - 1) * paginationDTO.PageSize)
                                                                    .Take(paginationDTO.PageSize).ToListAsync();
         }

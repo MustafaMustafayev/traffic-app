@@ -57,6 +57,9 @@ namespace traffic_app.IoC
             services.AddScoped<IOnTheWayDriverPostRepository, OnTheWayDriverPostRepository>();
             services.AddScoped<IOnTheWayDriverPostService, OnTheWayDriverPostService>();
 
+            services.AddScoped<IOnTheWayPassengerPostRepository, OnTheWayPassengerPostRepository>();
+            services.AddScoped<IOnTheWayPassengerPostService, OnTheWayPassengerPostService>();
+
             services.AddDistributedMemoryCache();
             services.AddSession();
 
